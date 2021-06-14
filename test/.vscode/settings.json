@@ -1,0 +1,7 @@
+{
+  "markdownScripture.sources": [
+    { "include": "sources/can1939/*.md", "ref": "can1939/${filename}" },
+    { "include": "sources/dr1899/*.md", "ref": "dr1899/${filename}" },
+    { "include": "sources/dr1899/*.md", "ref": "${filename}" }
+  ]
+}
