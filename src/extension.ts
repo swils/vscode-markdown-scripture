@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
   WorkspaceCache.updateAllUris();
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("markdown-scripture.resetCache", ResetCacheCommand.run),
+    vscode.commands.registerCommand("markdownScripture.resetCache", ResetCacheCommand.run),
     // vscode.languages.registerReferenceProvider(DOCUMENT_SELECTOR, new ScriptureReferenceProvider()),
     vscode.workspace.onDidSaveTextDocument(WorkspaceCache.onDidSaveTextDocument)
   );

@@ -1,7 +1,9 @@
+import * as chai from "chai";
 import * as glob from "glob";
 import * as Mocha from "mocha";
 import * as path from "path";
 import * as sinon from "sinon";
+import * as sinonChai from "sinon-chai";
 
 export function run(): Promise<void> {
   // Create the mocha test
@@ -9,6 +11,8 @@ export function run(): Promise<void> {
     ui: "bdd",
     color: true
   });
+
+  chai.use(sinonChai);
 
   mocha.globalSetup((done) => {
     afterEach(function() {

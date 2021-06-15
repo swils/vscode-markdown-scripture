@@ -14,7 +14,7 @@ interface TestCase {
 }
 
 describe("MarkdownItRef", function() {
-  describe("plugin", function() {
+  describe(".plugin", function() {
     let parser: MarkdownIt;
 
     beforeEach(function() {
@@ -25,32 +25,47 @@ describe("MarkdownItRef", function() {
     const cases: TestCase[] = [
       {
         markdown: "pre ?[foo#4:6] post",
-        fetch: {"foo#4:6": "included text"},
+        fetch: { "foo#4:6": "included text" },
         rendered: "<p>pre Foo 4:6 post</p>\n",
       }, {
         markdown: "pre ![foo#4:6] post",
-        fetch: {"foo#4:6": "included text"},
+        fetch: { "foo#4:6": "included text" },
         rendered: "<p>pre included text post</p>\n",
       }, {
         title: "deals with multiple references",
         markdown: "a ![foo#4:6] c ![bar#5:9] e ?[baz#1:2] g",
-        fetch: {"foo#4:6": "b", "bar#5:9": "d", "baz#1:2": "f"},
+        fetch: { "foo#4:6": "b", "bar#5:9": "d", "baz#1:2": "f" },
         rendered: "<p>a b c d e Baz 1:2 g</p>\n",
       }, {
         title: "renders non-matching query reference with <mark>",
         markdown: "pre ?[foo#4:7] post",
-        fetch: {"foo#4:6": "included text"},
+        fetch: { "foo#4:6": "included text" },
         rendered: "<p>pre &lt;mark&gt;?[foo#4:7]&lt;/mark&gt; post</p>\n",
       }, {
         title: "renders non-matching inclusion reference with <mark>",
         markdown: "pre ![foo#4:7] post",
-        fetch: {"foo#4:6": "included text"},
+        fetch: { "foo#4:6": "included text" },
         rendered: "<p>pre &lt;mark&gt;![foo#4:7]&lt;/mark&gt; post</p>\n",
       }, {
         title: "handles books with path prefixes",
         markdown: "pre ![books/foo#4:6] post",
-        fetch: {"books/foo#4:6": "correct", "foo#4:6": "wrong"},
+        fetch: { "books/foo#4:6": "correct", "foo#4:6": "wrong" },
         rendered: "<p>pre correct post</p>\n",
+      }, {
+        title: "recognizes a range spanning a single chapter",
+        markdown: "pre ![foo#2:1-2] post",
+        fetch: { "foo#2:1-2": "included text" },
+        rendered: "<p>pre included text post</p>\n",
+      }, {
+        title: "recognizes a range spanning chapters",
+        markdown: "pre ![foo#2:1-3:2] post",
+        fetch: { "foo#2:1-3:2": "included text" },
+        rendered: "<p>pre included text post</p>\n",
+      }, {
+        title: "recognizes multiple ranges within a book",
+        markdown: "pre ![foo#2:1-3,2:5-7,9] post",
+        fetch: { "foo#2:1-3,5-7,9": "included text" },
+        rendered: "<p>pre included text post</p>\n",
       },
     ];
     cases.forEach(function({ title, markdown, fetch, rendered }) {

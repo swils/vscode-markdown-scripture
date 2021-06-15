@@ -54,7 +54,7 @@ export function parse(q: string): Query | undefined {
   if (splitInBookAndRanges.length !== 2) { return; }
 
   // Extract book.
-  const book = splitInBookAndRanges[0];
+  const book = splitInBookAndRanges[0].trim();
   if (book.length === 0) { return; }
 
   // 3:5,3-4,3-6,4:5-4.
@@ -89,7 +89,7 @@ function bookToString(book: string): string | undefined {
 
 export function rangesToString(ranges: Range[]): string | undefined {
   if (ranges.length === 0) { return; }
-  let lastChapter:number = NaN;
+  let lastChapter: number = NaN;
   const result = ranges.map(({ to, from }) => {
     let rangeResult = "";
 

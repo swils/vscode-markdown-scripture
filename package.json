@@ -23,14 +23,14 @@
     "vscode": "^1.56.0"
   },
   "activationEvents": [
-    "onLanguage:markdown",
-    "onCommand:markdown-scripture.helloWorld"
+    "onCommand:markdownScripture.resetCache",
+    "onLanguage:markdown"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "markdown-scripture.resetCache",
+        "command": "markdownScripture.resetCache",
         "title": "Markdown Scripture: Reset cache"
       }
     ],
