@@ -56,7 +56,7 @@ export function create(document: vscode.TextDocument): Source {
 
       const verseNum = verseMatch[1];
       if (verseNum.length !== 0) {
-        if (currentChapter) { currentChapter[verseNum] = verseMatch[2]; }
+        if (currentChapter) { currentChapter[verseNum] = verseMatch[2].trim(); }
       }
 
       // Replace content with the remained of itself.
@@ -70,19 +70,44 @@ export function create(document: vscode.TextDocument): Source {
 export function fetch(source: Source, ranges: Query.Range[]): string | undefined {
   let result = "";
   for (const r of ranges) {
-    for (let c = r.from.chapter; c <= r.to.chapter; ++c) {
-      const fragment = source.fragments[c];
+    let { from, to } = r;
+
+    if (from.chapter > to.chapter) { [ from, to ] = [ to, from ]; }
+    if (from.chapter === to.chapter) {
+      if (from.verse > to.verse) { [ from, to ] = [ to, from ]; }
+    }
+
+    for (let chapter = from.chapter; chapter <= to.chapter; ++chapter) {
+      const fragment = source.fragments[chapter];
       if (!fragment) { return undefined; }
       if (_.isString(fragment)) { return undefined; }
-      for (let v = r.from.verse; v <= r.to.verse; ++v) {
+
+      let fromVerse = from.verse;
+      if (chapter !== from.chapter) {
+        // If this is not the last chapter, run to the end of the chapter.
+        const firstVerse = _.min(_(fragment).keys().map(Number).value());
+        if (!firstVerse) { return undefined; }
+        fromVerse = firstVerse;
+      }
+
+      let toVerse = to.verse;
+      if (chapter !== to.chapter) {
+        // If this is not the last chapter, run to the end of the chapter.
+        const lastVerse = _.max(_(fragment).keys().map(Number).value());
+        if (!lastVerse) { return undefined; }
+        toVerse = lastVerse;
+      }
+
+      for (let v = fromVerse; v <= toVerse; ++v) {
         const verse = fragment[v];
         if (_.isString(verse)) {
-          result += `${v} ${fragment[v]}`;
+          result += `${v} ${fragment[v]} `;
         } else {
           return undefined;
         }
       }
     }
   }
-  return result;
+
+  return result.trim();
 }
