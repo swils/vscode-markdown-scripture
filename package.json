@@ -22,6 +22,10 @@
   "engines": {
     "vscode": "^1.56.0"
   },
+  "repository": {
+    "url": "https://github.com/swils/vscode-markdown-scripture.git",
+    "type": "git"
+  },
   "activationEvents": [
     "onCommand:markdownScripture.resetCache",
     "onLanguage:markdown"
