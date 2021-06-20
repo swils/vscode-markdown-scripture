@@ -1,5 +1,6 @@
 import * as MarkdownIt from "markdown-it";
 import * as vscode from "vscode";
+import * as ConfigurationChangeListener from "./ConfigurationChangeListener";
 import * as MarkdownItRef from "./MarkdownItRef";
 import * as ResetCacheCommand from "./ResetCacheCommand";
 import { ScriptureReferenceProvider } from "./ScriptureReferenceProvider";
@@ -25,7 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("markdownScripture.resetCache", ResetCacheCommand.run),
     // vscode.languages.registerReferenceProvider(DOCUMENT_SELECTOR, new ScriptureReferenceProvider()),
-    vscode.workspace.onDidSaveTextDocument(WorkspaceCache.onDidSaveTextDocument)
+    vscode.workspace.onDidSaveTextDocument(WorkspaceCache.onDidSaveTextDocument),
+    vscode.workspace.onDidChangeConfiguration(ConfigurationChangeListener.handle),
   );
 
   // See: https://code.visualstudio.com/api/extension-guides/markdown-extension
