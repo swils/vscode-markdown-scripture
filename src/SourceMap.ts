@@ -82,7 +82,7 @@ export class SourceMap<T> {
   public remove(fsPath: string) {
     this.#sourceMapObject.keyToFsPathMap = _(this.#sourceMapObject.keyToFsPathMap)
       .toPairs()
-      .filter(([ key, path ]) => path === fsPath)
+      .reject(([ key, path ]) => path === fsPath)
       .fromPairs()
       .value();
     _.unset(this.#sourceMapObject.fsPathToEntryMap, fsPath);
@@ -90,7 +90,8 @@ export class SourceMap<T> {
 
   public prune(newFsPaths: string[]) {
     const newFsPathsSet = new Set(newFsPaths);
-    _(this.#sourceMapObject.fsPathToEntryMap).keys().forEach((fsPath) => {
+    const oldFsPaths = _.keys(this.#sourceMapObject.fsPathToEntryMap);
+    oldFsPaths.forEach((fsPath) => {
       if (!newFsPathsSet.has(fsPath)) {
         this.remove(fsPath);
       }

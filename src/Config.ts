@@ -1,12 +1,12 @@
 import * as _ from "lodash";
 import * as vscode from "vscode";
 
-interface SourceConfig {
+export interface SourceConfig {
   include?: string;
   ref?: string;
 }
 
-interface Config {
+export interface Config {
   sources: SourceConfig[];
 }
 
