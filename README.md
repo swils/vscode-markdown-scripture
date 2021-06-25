@@ -1,5 +1,7 @@
 # Markdown Scripture
 
+[![Build Status](https://travis-ci.com/swils/vscode-markdown-scripture.svg?branch=master)](https://travis-ci.com/swils/vscode-markdown-scripture)
+
 Allow your Markdown notes to track references and include quotes from verse-based documents such as the Bible.
 
 ## Features
