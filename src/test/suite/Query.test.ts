@@ -1,22 +1,9 @@
 import * as _ from "lodash";
 import { expect } from "chai";
+import { range, query } from "../testHelpers";
 import * as Query from "../../Query";
 
 describe("Query", function() {
-  function range({ fc, fv, tc, tv }: any = {}): Query.Range {
-    return {
-      from: { chapter: fc || 1, verse: fv || 1 },
-      to: { chapter: tc || fc || 1, verse: tv || fv || 1 },
-    };
-  }
-
-  function result({ b, ...rng }: any = {}): Query.Query {
-    return {
-      book: b || "jn",
-      ranges: [ range(rng) ]
-    };
-  }
-
   describe(".parse", function() {
     interface QueryParseTestCase {
       title?: string;
@@ -25,8 +12,8 @@ describe("Query", function() {
     }
 
     const cases: QueryParseTestCase[] = [
-      { query: "[jn#1:1]", result: result() },
-      { query: "[jn#1:1-4]", result: result({ tv: 4 }) },
+      { query: "[jn#1:1]", result: query() },
+      { query: "[jn#1:1-4]", result: query({ tv: 4 }) },
       {
         query: "[jn#1:1,4,10]",
         result: {
@@ -34,7 +21,7 @@ describe("Query", function() {
           ranges: [ range(), range({ fv: 4 }), range({ fv: 10 }) ]
         }
       },
-      { title: "filters out space", query: "  [   jn  # 1 : 1  ]  ", result: result() },
+      { title: "filters out space", query: "  [   jn  # 1 : 1  ]  ", result: query() },
       {
         query: "[can1939/jn#3:5,3-4,3-6,4:5-5:1]",
         result: {
@@ -52,7 +39,7 @@ describe("Query", function() {
         // document it for now.
         title: "parses out-of-order ranges",
         query: "[jn#5:1-2:1]",
-        result: result({ fc: 5, fv: 1, tc: 2, tv: 1}) },
+        result: query({ fc: 5, fv: 1, tc: 2, tv: 1}) },
       { query: "[jn#]", result: undefined },
       { query: "[jn#1]", result: undefined },  // This should be ok. See #1 in Github.
     ];

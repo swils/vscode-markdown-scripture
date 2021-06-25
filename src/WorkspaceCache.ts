@@ -19,6 +19,10 @@ export class WorkspaceCache {
   private static workspaceState: vscode.Memento | undefined;
   private static sourceMap: TimestampedSourceMap | undefined;
 
+  static isInitialized(): boolean {
+    return !_.isNil(WorkspaceCache.sourceMap);
+  }
+
   static initialize(workspaceState: vscode.Memento) {
     WorkspaceCache.workspaceState = workspaceState;
 

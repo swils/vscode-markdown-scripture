@@ -4,6 +4,7 @@ import * as Mocha from "mocha";
 import * as path from "path";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
+import { closeAllEditors } from "../testHelpers";
 
 export function run(): Promise<void> {
   // Create the mocha test
@@ -14,10 +15,13 @@ export function run(): Promise<void> {
 
   chai.use(sinonChai);
 
-  mocha.globalSetup((done) => {
-    afterEach(function() {
+  mocha.rootHooks({
+    async afterEach() {
       sinon.restore();
-    });
+    },
+    async afterAll() {
+      closeAllEditors();
+    }
   });
 
   const testsRoot = path.resolve(__dirname, "..");

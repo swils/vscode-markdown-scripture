@@ -29,11 +29,6 @@ export class SourceMap<T> {
     };
   }
 
-  // public fetch({ book, ranges }: Query): string | undefined {
-  //   const source = this.byKey(book);
-  //   return source ? Source.fetch(source, ranges) : undefined;
-  // }
-
   public byKey(key: string): T | undefined {
     const path = this.#sourceMapObject.keyToFsPathMap[key];
     return path ? this.byPath(path) : undefined;
