@@ -21,14 +21,7 @@ describe("WorkspaceCache", function() {
     await activateExtension();
   });
 
-  describe(".fetch", async function() {
-    it("returns parsed verses", async function() {
-      const verses = WorkspaceCache.fetch(query({ b: "jn", fc: 3, fv: 16 }));
-      expect(verses).to.contain("For God so loved the world, as to give his only begotten Son");
-    });
-  });
-
-  describe(".updateAllUris", async function() {
+  describe(".updateAllUris", function() {
     it("picks up new files, updates edited files and prunes deleted files", async function() {
       const b = randomFileName();
       const testPath = `sources/dr1899/${b}.md`;
@@ -72,7 +65,7 @@ describe("WorkspaceCache", function() {
     });
   });
 
-  describe(".onDidSaveTextDocument", async function() {
+  describe(".onDidSaveTextDocument", function() {
     it("responds to registered source file changes", async function() {
       const testPath = `sources/dr1899/${randomFileName()}.md`;
       try {
@@ -105,6 +98,14 @@ describe("WorkspaceCache", function() {
       } finally {
         await tryDeleteTestDocument(testPath);
       }
+    });
+  });
+
+  describe(".fetch", function() {
+    it("returns parsed verses", async function() {
+      const verses = WorkspaceCache.fetch(query({ b: "jn", fc: 3, fv: 16 }));
+      expect(verses).not.to.be.undefined;
+      expect(verses).to.contain("For God so loved the world, as to give his only begotten Son");
     });
   });
 });
