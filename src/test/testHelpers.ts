@@ -66,7 +66,7 @@ export async function closeAllEditors() {
 }
 
 export function getExtension() {
-  return vscode.extensions.getExtension("stefanwils.markdown-scripture");
+  return vscode.extensions.getExtension("swils.markdown-scripture");
 }
 
 export async function activateExtension(): Promise<void> {

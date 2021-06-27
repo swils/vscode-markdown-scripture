@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.0.2] - 2021-06-27
 
+### Added
+
+- MIT license.
+
 ### Changed
 
 - Better packaging.
