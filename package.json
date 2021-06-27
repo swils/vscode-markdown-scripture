@@ -2,7 +2,7 @@
   "name": "markdown-scripture",
   "version": "0.0.1",
   "displayName": "Markdown Scripture",
-  "publisher": "stefanwils",
+  "publisher": "swils",
   "description": "Allow your Markdown notes to track references and include quotes from verse-based documents such as the Bible. This makes it easy to keep detailed Markdown notes on Holy Scripture.",
   "categories": [
     "Notebooks",
