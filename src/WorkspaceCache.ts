@@ -1,4 +1,5 @@
 import * as _ from "lodash";
+import * as glob from "glob";
 import * as vscode from "vscode";
 import * as Config from "./Config";
 import { Query } from "./Query";
@@ -97,9 +98,23 @@ export class WorkspaceCache {
 
   private static async allUris(): Promise<vscode.Uri[]> {
     const { sources } = Config.get();
-    const uris = await Promise.all(sources.map(({ include }) => {
-      if (!include) { return []; }
-      return vscode.workspace.findFiles(include);
+
+    const uris = await Promise.all(sources.map((source) => {
+      const pattern = Utils.sourceConfigToGlobPattern(source);
+      if (!pattern) { return []; }
+
+      // Deal with extensions (absolute paths, outside of the workspace).
+      if (Utils.isExtensionSourceConfig(source)) {
+        return new Promise<vscode.Uri[]>((resolve, reject) => {
+          glob.glob(pattern, (err, matches) => {
+            if (err) { resolve([]); }
+            resolve(matches.map(match => vscode.Uri.file(match)));
+          });
+        });
+      }
+
+      // Deal with local sources (local paths within the workspace).
+      return vscode.workspace.findFiles(pattern);
     }));
     return _.uniqBy(uris.reduce((arr, row) => { return arr.concat(row); }, []), "path");
   }

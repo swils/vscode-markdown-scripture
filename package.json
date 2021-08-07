@@ -44,11 +44,14 @@
       "properties": {
         "markdownScripture.sources": {
           "type": "array",
-          "description": "Locations of source files as a list of glob patterns with an optional reference specification.",
+          "description": "Locations of source files, either in a VScode extension or as a list of local glob patterns, with an optional reference specification.",
           "items": {
             "type": "object",
             "properties": {
               "include": {
+                "type": "string"
+              },
+              "extension": {
                 "type": "string"
               },
               "ref": {

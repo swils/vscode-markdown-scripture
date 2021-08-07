@@ -2,6 +2,7 @@ import * as _ from "lodash";
 import * as vscode from "vscode";
 
 export interface SourceConfig {
+  extension?: string;
   include?: string;
   ref?: string;
 }
