@@ -1,7 +1,7 @@
 {
   "markdownScripture.sources": [
+    { "extension": "swils.markdown-scripture", "include": "test", "ref": "${filename}" },
+    { "extension": "swils.markdown-scripture", "include": "test", "ref": "test/${filename}" },
     { "include": "sources/can1939/*.md", "ref": "can1939/${filename}" },
-    { "include": "sources/dr1899/*.md", "ref": "dr1899/${filename}" },
-    { "include": "sources/dr1899/*.md", "ref": "${filename}" }
   ]
 }
