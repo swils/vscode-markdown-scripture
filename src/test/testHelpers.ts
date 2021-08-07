@@ -14,7 +14,7 @@ export function range({ fc, fv, tc, tv }: any = {}): Query.Range {
 
 export function query({ b, ...rng }: any = {}): Query.Query {
   return {
-    book: b || "jn",
+    book: b || "john",
     ranges: [ range(rng) ]
   };
 }
@@ -82,6 +82,7 @@ export async function activateExtension(): Promise<void> {
 export function stubConfig(config?: Config.Config) {
   const CONFIG: Config.Config = config || {
     sources: [
+      { extension: "swils.markdown-scripture", include: "test", ref: "test/${filename}" },
       { include: "sources/can1939/*.md", ref: "can1939/${filename}" },
       { include: "sources/can1939/*.md", ref: "${filename}" },
     ]
@@ -91,4 +92,13 @@ export function stubConfig(config?: Config.Config) {
 
 export function unstubConfig() {
   (Config.get as any).restore();
+}
+
+export function createFsPathForExtensionSource(relFsPath: string) {
+  const vscodeExtension = getExtension();
+  if (vscodeExtension) {
+    return vscodeExtension.extensionPath + "/data/" + relFsPath;
+  } else {
+    throw new Error(`Extension not found`);
+  }
 }

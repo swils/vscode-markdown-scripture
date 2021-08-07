@@ -24,9 +24,9 @@ describe("WorkspaceCache", function() {
   describe(".updateAllUris", function() {
     it("picks up new files, updates edited files and prunes deleted files", async function() {
       const b = randomFileName();
-      const testPath = `sources/dr1899/${b}.md`;
-      const testRef1 = query({ b, fc: 1, fv: 1 });
-      const testRef3 = query({ b, fc: 1, fv: 3 });
+      const testPath = `sources/can1939/${b}.md`;
+      const testRef1 = query({ b: `can1939/${b}`, fc: 1, fv: 1 });
+      const testRef3 = query({ b: `can1939/${b}`, fc: 1, fv: 3 });
 
       try {
         expect(WorkspaceCache.fetch(testRef1)).to.be.undefined;
@@ -67,7 +67,7 @@ describe("WorkspaceCache", function() {
 
   describe(".onDidSaveTextDocument", function() {
     it("responds to registered source file changes", async function() {
-      const testPath = `sources/dr1899/${randomFileName()}.md`;
+      const testPath = `sources/can1939/${randomFileName()}.md`;
       try {
         await writeTestDocument(testPath, "");
 
@@ -103,7 +103,7 @@ describe("WorkspaceCache", function() {
 
   describe(".fetch", function() {
     it("returns parsed verses", async function() {
-      const verses = WorkspaceCache.fetch(query({ b: "jn", fc: 3, fv: 16 }));
+      const verses = WorkspaceCache.fetch(query({ b: "john", fc: 3, fv: 16 }));
       expect(verses).not.to.be.undefined;
       expect(verses).to.contain("For God so loved the world, as to give his only begotten Son");
     });

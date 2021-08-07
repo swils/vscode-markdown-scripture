@@ -4,12 +4,12 @@ import * as path from "path";
 import * as vscode from "vscode";
 import * as Config from "./Config";
 
-export function isWorkspaceSourceConfig({ extension, include }: Config.SourceConfig): boolean {
-  return (_.isNil(extension) && !_.isNil(include));
-}
-
 export function isExtensionSourceConfig({ extension, include }: Config.SourceConfig): boolean {
   return (!_.isNil(extension) && !_.isNil(include));
+}
+
+export function isWorkspaceSourceConfig({ extension, include }: Config.SourceConfig): boolean {
+  return (_.isNil(extension) && !_.isNil(include));
 }
 
 export function sourceConfigToGlobPattern({ extension, include }: Config.SourceConfig): string | undefined {
@@ -18,6 +18,8 @@ export function sourceConfigToGlobPattern({ extension, include }: Config.SourceC
     const vscodeExtension = vscode.extensions.getExtension(extension);
     if (vscodeExtension) {
       pattern = vscodeExtension.extensionPath + "/data/" + include + "/*.md";
+    } else {
+      return;
     }
   }
   return pattern;

@@ -12,20 +12,20 @@ describe("Query", function() {
     }
 
     const cases: QueryParseTestCase[] = [
-      { query: "[jn#1:1]", result: query() },
-      { query: "[jn#1:1-4]", result: query({ tv: 4 }) },
+      { query: "[john#1:1]", result: query() },
+      { query: "[john#1:1-4]", result: query({ tv: 4 }) },
       {
-        query: "[jn#1:1,4,10]",
+        query: "[john#1:1,4,10]",
         result: {
-          book: "jn",
+          book: "john",
           ranges: [ range(), range({ fv: 4 }), range({ fv: 10 }) ]
         }
       },
-      { title: "filters out space", query: "  [   jn  # 1 : 1  ]  ", result: query() },
+      { title: "filters out space", query: "  [   john  # 1 : 1  ]  ", result: query() },
       {
-        query: "[can1939/jn#3:5,3-4,3-6,4:5-5:1]",
+        query: "[can1939/john#3:5,3-4,3-6,4:5-5:1]",
         result: {
-          book: "can1939/jn",
+          book: "can1939/john",
           ranges: [
             range({ fc: 3, fv: 5 }),
             range({ fc: 3, fv: 3, tv: 4 }),
@@ -38,10 +38,10 @@ describe("Query", function() {
         // Not sure if this case *should* be working. But it does so let's
         // document it for now.
         title: "parses out-of-order ranges",
-        query: "[jn#5:1-2:1]",
+        query: "[john#5:1-2:1]",
         result: query({ fc: 5, fv: 1, tc: 2, tv: 1}) },
-      { query: "[jn#]", result: undefined },
-      { query: "[jn#1]", result: undefined },  // This should be ok. See #1 in Github.
+      { query: "[john#]", result: undefined },
+      { query: "[john#1]", result: undefined },  // This should be ok. See #1 in Github.
     ];
     cases.forEach(function({ title, query, result }) {
       it(title || `handles ${query}`, function() {
@@ -81,13 +81,13 @@ describe("Query", function() {
     const cases: QueryToStringTestCase[] = [
       {
         query: {
-          book: "can1939/jn",
+          book: "can1939/john",
           ranges: [
             range({ fc: 1, fv: 1, tc: 3, tv: 3 }),
             range({ fc: 4, fv: 5 })
           ],
         },
-        result: "Jn 1:1-3:3,4:5"
+        result: "John 1:1-3:3,4:5"
       },
     ];
 
