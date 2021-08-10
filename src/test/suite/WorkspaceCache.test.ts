@@ -103,7 +103,7 @@ describe("WorkspaceCache", function() {
 
   describe(".fetch", function() {
     it("returns parsed verses", async function() {
-      const verses = WorkspaceCache.fetch(query({ b: "john", fc: 3, fv: 16 }));
+      const verses = WorkspaceCache.fetch(query({ b: "test/john", fc: 3, fv: 16 }));
       expect(verses).not.to.be.undefined;
       expect(verses).to.contain("For God so loved the world, as to give his only begotten Son");
     });
