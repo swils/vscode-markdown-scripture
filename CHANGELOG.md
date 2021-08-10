@@ -4,15 +4,24 @@ All notable changes to the "markdown-scripture" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.0] - 2021-08-10
+
+### Added
+
+* Support for source documents within extensions.
+* Included the Douay-Rheims (Challoner) Bible.
+
+### Changed
+
 ## [0.0.2] - 2021-06-27
 
 ### Added
 
-- MIT license.
+* MIT license.
 
 ### Changed
 
-- Better packaging.
+* Better packaging.
 
 ## [0.0.1] - 2021-06-27
 
