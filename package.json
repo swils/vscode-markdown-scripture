@@ -1,6 +1,6 @@
 {
   "name": "markdown-scripture",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Markdown Scripture",
   "publisher": "swils",
   "description": "Allow your Markdown notes in VS Code to track references and include quotes from verse-based documents such as the Bible.",
