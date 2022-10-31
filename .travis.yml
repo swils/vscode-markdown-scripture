@@ -2,8 +2,9 @@ language: node_js
 
 sudo: false
 
-node_js:
-  - "node"
+# For Travis, we need a Node version and Linux image that work together. See:
+# https://travis-ci.community/t/the-command-npm-config-set-spin-false-failed-and-exited-with-1-during/12909/4
+dist: focal
 
 services:
   - xvfb
