@@ -99,7 +99,7 @@ export class WorkspaceCache {
   private static async allUris(): Promise<vscode.Uri[]> {
     const { sources } = Config.get();
 
-    const uris = await Promise.all(sources.map((source) => {
+    const uris = await Promise.all<vscode.Uri[]>(sources.map((source) => {
       const pattern = Utils.sourceConfigToGlobPattern(source);
       if (!pattern) { return []; }
 
