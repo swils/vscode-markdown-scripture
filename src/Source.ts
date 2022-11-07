@@ -101,7 +101,7 @@ export function fetch(source: Source, ranges: Query.Range[]): string | undefined
       for (let v = fromVerse; v <= toVerse; ++v) {
         const verse = fragment[v];
         if (_.isString(verse)) {
-          result += `${v} ${fragment[v]} `;
+          result += `<span class="md-scripture-verse-num">${v}</span> ${fragment[v]} `;
         } else {
           return undefined;
         }

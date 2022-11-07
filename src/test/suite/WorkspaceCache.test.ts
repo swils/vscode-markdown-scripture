@@ -34,7 +34,7 @@ describe("WorkspaceCache", function() {
         // We create the test file directly on the filesystem.
         await writeTestDocument(testPath, "<!-- scripture:1 -->\n\n[1] test1 [2] test2\n");
         await WorkspaceCache.updateAllUris();
-        expect(WorkspaceCache.fetch(testRef1)).to.equal("1 test1");
+        expect(WorkspaceCache.fetch(testRef1)).to.equal(`<span class="md-scripture-verse-num">1</span> test1`);
         expect(WorkspaceCache.fetch(testRef3)).to.be.undefined;
 
         // This short artificial delay should make the timestamp comparison for
@@ -47,8 +47,8 @@ describe("WorkspaceCache", function() {
         // Otherwise the change will not be visible upon re-parsing.
         await appendTestDocument(testPath, "[3] test3\n");
         await WorkspaceCache.updateAllUris();
-        expect(WorkspaceCache.fetch(testRef1)).to.equal("1 test1");
-        expect(WorkspaceCache.fetch(testRef3)).to.equal("3 test3");
+        expect(WorkspaceCache.fetch(testRef1)).to.equal(`<span class="md-scripture-verse-num">1</span> test1`);
+        expect(WorkspaceCache.fetch(testRef3)).to.equal(`<span class="md-scripture-verse-num">3</span> test3`);
 
         await tryDeleteTestDocument(testPath);
         await WorkspaceCache.updateAllUris();

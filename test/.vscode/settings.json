@@ -3,5 +3,6 @@
     { "extension": "swils.markdown-scripture", "include": "test", "ref": "${filename}" },
     { "extension": "swils.markdown-scripture", "include": "test", "ref": "test/${filename}" },
     { "include": "sources/can1939/*.md", "ref": "can1939/${filename}" },
-  ]
+  ],
+  "markdown.styles": ["style.css"]
 }

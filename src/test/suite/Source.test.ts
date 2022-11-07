@@ -54,7 +54,7 @@ describe("Source", function() {
       const result = Source.fetch(source, [
         { from: { chapter: 2, verse: 1 }, to: { chapter: 2, verse: 1 } }
       ]);
-      expect(result).to.equal("1 d");
+      expect(result).to.equal(`<span class="md-scripture-verse-num">1</span> d`);
     });
 
     it ("returns undefined when something is not available", async function () {
@@ -70,21 +70,37 @@ describe("Source", function() {
       const result = Source.fetch(source, [
         { from: { chapter: 1, verse: 2 }, to: { chapter: 2, verse: 1 } }
       ]);
-      expect(result).to.equal("2 b 3 c 1 d");
+      expect(result).to.equal(
+        `<span class="md-scripture-verse-num">2</span> b ` +
+        `<span class="md-scripture-verse-num">3</span> c ` +
+        `<span class="md-scripture-verse-num">1</span> d`
+      );
     });
 
     it ("returns undefined when chapters are out-of-order", async function () {
       const result = Source.fetch(source, [
         { from: { chapter: 3, verse: 3 }, to: { chapter: 1, verse: 2 } }
       ]);
-      expect(result).to.equal("2 b 3 c 1 d 2 e 3 f 1 g 2 h 3 i");
+      expect(result).to.equal(
+        `<span class="md-scripture-verse-num">2</span> b ` +
+        `<span class="md-scripture-verse-num">3</span> c ` +
+        `<span class="md-scripture-verse-num">1</span> d ` +
+        `<span class="md-scripture-verse-num">2</span> e ` +
+        `<span class="md-scripture-verse-num">3</span> f ` +
+        `<span class="md-scripture-verse-num">1</span> g ` +
+        `<span class="md-scripture-verse-num">2</span> h ` +
+        `<span class="md-scripture-verse-num">3</span> i`
+      );
     });
 
     it ("returns undefined when verses are out-of-order", async function () {
       const result = Source.fetch(source, [
         { from: { chapter: 2, verse: 2 }, to: { chapter: 2, verse: 1 } },
       ]);
-      expect(result).to.equal("1 d 2 e");
+      expect(result).to.equal(
+        `<span class="md-scripture-verse-num">1</span> d ` +
+        `<span class="md-scripture-verse-num">2</span> e`
+      );
     });
   });
 });
